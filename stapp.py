@@ -175,7 +175,7 @@ if uploaded_file:
         num_rows = (num_charts + 2) // 3  # 1行に3つのチャート
         fig, axes = plt.subplots(num_rows, 3, subplot_kw=dict(polar=True), figsize=(chart_size[0] * 3, chart_size[1] * num_rows))
 
-        prop = fm.FontProperties(fname='C:/Windows/Fonts/msgothic.ttc')  # Windowsの場合
+        prop = fm.FontProperties(fname='msgothic.ttc')  # Windowsの場合
 
         for idx, ax in enumerate(axes.flat):
             if idx < num_charts:
@@ -209,7 +209,7 @@ if uploaded_file:
 
         fig, ax = plt.subplots(figsize=chart_size, subplot_kw=dict(polar=True))
 
-        prop = fm.FontProperties(fname='C:/Windows/Fonts/msgothic.ttc')  # Windowsの場合
+        prop = fm.FontProperties(fname='msgothic.ttc')  # Windowsの場合
 
         for idx, d in enumerate(data):
             values = d.tolist()
