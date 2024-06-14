@@ -1,12 +1,17 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
+import numpy as np
 import matplotlib.font_manager as fm
 import os
 
 # フォントファイルのパスを指定
 font_path = 'msgothic.ttc'
+if not os.path.exists(font_path):
+    st.error("フォントファイルが見つかりません。")
+else:
+    st.success("フォントファイルが見つかりました。")
+
 prop = fm.FontProperties(fname=font_path)
 
 def show():
@@ -95,10 +100,12 @@ def show():
         st.write("### 配当金の比較")
         fig, ax = plt.subplots()
         categories = [', '.join(held_securities), new_security]
-        values = [held_security_data['配当金平均'].sum() / 100000, new_dividends / 100000]  # 100,000円単位に変換
+        values = [held_security_data['配当金平均'].sum(), new_dividends]  # 円単位
         bars = ax.bar(categories, values, color=['blue', 'green'])
-        ax.set_ylabel('配当金（10万円単位）', fontproperties=prop)
+        ax.set_ylabel('配当金（円）', fontproperties=prop)
         ax.set_xticklabels(categories, fontproperties=prop)
+        ax.yaxis.set_major_locator(ticker.MultipleLocator(100000))  # 10万円刻みの表示に設定
+        ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
         for bar in bars:
             height = bar.get_height()
             ax.annotate(f'{height:,.0f}', xy=(bar.get_x() + bar.get_width() / 2, height),
