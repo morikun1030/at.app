@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import matplotlib.font_manager as fm
 
-# フォントプロパティの設定
-prop = fm.FontProperties(fname='LiberationSans-Regular.ttf')
+# デフォルトフォントプロパティの設定
+plt.rcParams['font.family'] = 'DejaVu Sans'
 
 def show():
     # Session stateからPage1とPage2のデータを取得
