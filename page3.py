@@ -5,6 +5,9 @@ import matplotlib.ticker as ticker
 
 # デフォルトフォントプロパティの設定
 plt.rcParams['font.family'] = 'DejaVu Sans'
+# フォントファイルのパスを指定
+font_path = 'msgothic.ttc'
+
 
 def show():
     # Session stateからPage1とPage2のデータを取得
