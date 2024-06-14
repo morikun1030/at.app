@@ -6,7 +6,12 @@ import matplotlib.font_manager as fm
 import os
 
 # フォントファイルのパスを指定
-font_path = os.path.join(os.path.dirname(__file__), 'fonts', 'msgothic.ttc')
+font_path = 'msgothic.ttc'
+if not os.path.exists(font_path):
+    st.error("フォントファイルが見つかりません。")
+else:
+    st.success("フォントファイルが見つかりました。")
+
 prop = fm.FontProperties(fname=font_path)
 
 def show():
@@ -86,7 +91,6 @@ def show():
         bars = ax.bar(categories, values, color=['blue', 'green'])
         ax.set_ylabel('価格（百万円）', fontproperties=prop)
         ax.set_xticklabels(categories, fontproperties=prop)
-        ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
         for bar in bars:
             height = bar.get_height()
             ax.annotate(f'{height:,.0f}', xy=(bar.get_x() + bar.get_width() / 2, height),
@@ -100,7 +104,6 @@ def show():
         bars = ax.bar(categories, values, color=['blue', 'green'])
         ax.set_ylabel('配当金（円）', fontproperties=prop)
         ax.set_xticklabels(categories, fontproperties=prop)
-        ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
         for bar in bars:
             height = bar.get_height()
             ax.annotate(f'{height:,.0f}', xy=(bar.get_x() + bar.get_width() / 2, height),
