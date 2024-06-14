@@ -78,13 +78,13 @@ def show():
         categories = [', '.join(held_securities), new_security]
         values = [held_market_value / 1e6, new_purchase_shares * new_security_data['株価'] / 1e6]  # 百万円単位に変換
         bars = ax.bar(categories, values, color=['blue', 'green'])
-        ax.set_ylabel('価格（百万円）', fontname="MS Gothic")
-        ax.set_xticklabels(categories, fontname="MS Gothic")
+        ax.set_ylabel('価格（百万円）', fontsize=12)
+        ax.set_xticklabels(categories, fontsize=12)
         ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
         for bar in bars:
             height = bar.get_height()
             ax.annotate(f'{height:,.0f}', xy=(bar.get_x() + bar.get_width() / 2, height),
-                        xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontname="MS Gothic")
+                        xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=10)
         st.pyplot(fig)
 
         st.write("### 配当金の比較")
@@ -92,25 +92,25 @@ def show():
         categories = [', '.join(held_securities), new_security]
         values = [held_security_data['配当金平均'].sum(), new_dividends]  # 円単位
         bars = ax.bar(categories, values, color=['blue', 'green'])
-        ax.set_ylabel('配当金（円）', fontname="MS Gothic")
-        ax.set_xticklabels(categories, fontname="MS Gothic")
+        ax.set_ylabel('配当金（円）', fontsize=12)
+        ax.set_xticklabels(categories, fontsize=12)
         ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
         for bar in bars:
             height = bar.get_height()
             ax.annotate(f'{height:,.0f}', xy=(bar.get_x() + bar.get_width() / 2, height),
-                        xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontname="MS Gothic")
+                        xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=10)
         st.pyplot(fig)
 
         # 計算結果のテーブル表示
         st.write("### 計算結果")
         result_df = pd.DataFrame({
             '項目': ['時価総額', '配当金'],
-            f'（{", ".join(held_securities)}）': [held_market_value, held_security_data['配当金平均'].sum()],
-            f'（{new_security}）': [new_purchase_shares * new_security_data['株価'], new_dividends],
+            f'保有有価証券（{", ".join(held_securities)}）': [held_market_value, held_security_data['配当金平均'].sum()],
+            f'新しい有価証券（{new_security}）': [new_purchase_shares * new_security_data['株価'], new_dividends],
             '変化': [(new_purchase_shares * new_security_data['株価']) - held_market_value, new_dividends - held_security_data['配当金平均'].sum()]
         })
-        result_df[f'（{", ".join(held_securities)}）'] = result_df[f'（{", ".join(held_securities)}）'].apply(lambda x: f'{x:,.0f} 円')
-        result_df[f'（{new_security}）'] = result_df[f'（{new_security}）'].apply(lambda x: f'{x:,.0f} 円')
+        result_df[f'保有有価証券（{", ".join(held_securities)}）'] = result_df[f'保有有価証券（{", ".join(held_securities)}）'].apply(lambda x: f'{x:,.0f} 円')
+        result_df[f'新しい有価証券（{new_security}）'] = result_df[f'新しい有価証券（{new_security}）'].apply(lambda x: f'{x:,.0f} 円')
         result_df['変化'] = result_df['変化'].apply(lambda x: f'{x:,.0f} 円')
         st.dataframe(result_df)
 
