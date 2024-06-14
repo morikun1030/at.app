@@ -100,9 +100,9 @@ def show():
         st.write("### 配当金の比較")
         fig, ax = plt.subplots()
         categories = [', '.join(held_securities), new_security]
-        values = [held_security_data['配当金平均'].sum(), new_dividends]  # 円単位
+        values = [held_security_data['配当金平均'].sum() / 100000, new_dividends / 100000]  # 100,000円単位に変換
         bars = ax.bar(categories, values, color=['blue', 'green'])
-        ax.set_ylabel('配当金（円）', fontproperties=prop)
+        ax.set_ylabel('配当金（10万円単位）', fontproperties=prop)
         ax.set_xticklabels(categories, fontproperties=prop)
         for bar in bars:
             height = bar.get_height()
