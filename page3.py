@@ -2,9 +2,26 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+import matplotlib.font_manager as fm
 
-# フォント設定
-font_path = 'msgothic.ttc'  #MS Gothicのパス
+# Webフォントの設定（例としてGoogle FontsのNoto Sans JPを使用）
+import matplotlib.font_manager as fm
+import requests
+from io import BytesIO
+
+# Google FontsからNoto Sans JPをダウンロード
+url = 'https://fonts.google.com/download?family=Noto%20Sans%20JP'
+response = requests.get(url)
+with open("/tmp/NotoSansJP.zip", "wb") as f:
+    f.write(response.content)
+
+# フォントを解凍
+import zipfile
+with zipfile.ZipFile("/tmp/NotoSansJP.zip", 'r') as zip_ref:
+    zip_ref.extractall("/tmp/NotoSansJP")
+
+# フォントのパスを設定
+font_path = "/tmp/NotoSansJP/static/NotoSansJP-Regular.otf"
 prop = fm.FontProperties(fname=font_path)
 
 def show():
@@ -82,13 +99,13 @@ def show():
         categories = [', '.join(held_securities), new_security]
         values = [held_market_value / 1e6, new_purchase_shares * new_security_data['株価'] / 1e6]  # 百万円単位に変換
         bars = ax.bar(categories, values, color=['blue', 'green'])
-        ax.set_ylabel('価格（百万円）', fontsize=12)
-        ax.set_xticklabels(categories, fontsize=12)
+        ax.set_ylabel('価格（百万円）', fontproperties=prop)
+        ax.set_xticklabels(categories, fontproperties=prop)
         ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
         for bar in bars:
             height = bar.get_height()
             ax.annotate(f'{height:,.0f}', xy=(bar.get_x() + bar.get_width() / 2, height),
-                        xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=10)
+                        xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontproperties=prop)
         st.pyplot(fig)
 
         st.write("### 配当金の比較")
@@ -96,13 +113,13 @@ def show():
         categories = [', '.join(held_securities), new_security]
         values = [held_security_data['配当金平均'].sum(), new_dividends]  # 円単位
         bars = ax.bar(categories, values, color=['blue', 'green'])
-        ax.set_ylabel('配当金（円）', fontsize=12)
-        ax.set_xticklabels(categories, fontsize=12)
+        ax.set_ylabel('配当金（円）', fontproperties=prop)
+        ax.set_xticklabels(categories, fontproperties=prop)
         ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
         for bar in bars:
             height = bar.get_height()
             ax.annotate(f'{height:,.0f}', xy=(bar.get_x() + bar.get_width() / 2, height),
-                        xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=10)
+                        xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontproperties=prop)
         st.pyplot(fig)
 
         # 計算結果のテーブル表示
