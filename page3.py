@@ -2,12 +2,12 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-iport os
+import matplotlib.font_manager as fm
+import os
 
 # フォントファイルのパスを指定
 font_path = os.path.join(os.path.dirname(__file__), 'fonts', 'msgothic.ttc')
 prop = fm.FontProperties(fname=font_path)
-
 
 def show():
     # Session stateからPage1とPage2のデータを取得
@@ -84,13 +84,13 @@ def show():
         categories = [', '.join(held_securities), new_security]
         values = [held_market_value / 1e6, new_purchase_shares * new_security_data['株価'] / 1e6]  # 百万円単位に変換
         bars = ax.bar(categories, values, color=['blue', 'green'])
-        ax.set_ylabel('価格（百万円）')
-        ax.set_xticklabels(categories)
+        ax.set_ylabel('価格（百万円）', fontproperties=prop)
+        ax.set_xticklabels(categories, fontproperties=prop)
         ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
         for bar in bars:
             height = bar.get_height()
             ax.annotate(f'{height:,.0f}', xy=(bar.get_x() + bar.get_width() / 2, height),
-                        xytext=(0, 3), textcoords="offset points", ha='center', va='bottom')
+                        xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontproperties=prop)
         st.pyplot(fig)
 
         st.write("### 配当金の比較")
@@ -98,13 +98,13 @@ def show():
         categories = [', '.join(held_securities), new_security]
         values = [held_security_data['配当金平均'].sum(), new_dividends]  # 円単位
         bars = ax.bar(categories, values, color=['blue', 'green'])
-        ax.set_ylabel('配当金（円）')
-        ax.set_xticklabels(categories)
+        ax.set_ylabel('配当金（円）', fontproperties=prop)
+        ax.set_xticklabels(categories, fontproperties=prop)
         ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
         for bar in bars:
             height = bar.get_height()
             ax.annotate(f'{height:,.0f}', xy=(bar.get_x() + bar.get_width() / 2, height),
-                        xytext=(0, 3), textcoords="offset points", ha='center', va='bottom')
+                        xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontproperties=prop)
         st.pyplot(fig)
 
         # 計算結果のテーブル表示
