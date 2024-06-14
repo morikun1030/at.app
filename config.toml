@@ -1,0 +1,8 @@
+# .streamlit/config.toml
+
+[theme]
+primaryColor = "#ADD8E6"                # 薄い水色
+backgroundColor = "#F0F8FF"             # アリスブルー
+secondaryBackgroundColor = "#E0FFFF"    # ライトシアン
+textColor = "#000080"                   # ネイビー
+font = "sans serif"
