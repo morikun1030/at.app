@@ -3,10 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
-# デフォルトフォントプロパティの設定
-plt.rcParams['font.family'] = 'DejaVu Sans'
 # フォントファイルのパスを指定
-font_path = 'msgothic.ttc'
+font_path = os.path.join(os.path.dirname(__file__), 'fonts', 'msgothic.ttc')
+prop = fm.FontProperties(fname=font_path)
 
 
 def show():
