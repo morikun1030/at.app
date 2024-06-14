@@ -4,25 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import matplotlib.font_manager as fm
 
-# Webフォントの設定（例としてGoogle FontsのNoto Sans JPを使用）
-import matplotlib.font_manager as fm
-import requests
-from io import BytesIO
-
-# Google FontsからNoto Sans JPをダウンロード
-url = 'https://fonts.google.com/download?family=Noto%20Sans%20JP'
-response = requests.get(url)
-with open("/tmp/NotoSansJP.zip", "wb") as f:
-    f.write(response.content)
-
-# フォントを解凍
-import zipfile
-with zipfile.ZipFile("/tmp/NotoSansJP.zip", 'r') as zip_ref:
-    zip_ref.extractall("/tmp/NotoSansJP")
-
-# フォントのパスを設定
-font_path = "/tmp/NotoSansJP/static/NotoSansJP-Regular.otf"
-prop = fm.FontProperties(fname=font_path)
+# フォントプロパティの設定
+prop = fm.FontProperties(fname='LiberationSans-Regular.ttf')
 
 def show():
     # Session stateからPage1とPage2のデータを取得
