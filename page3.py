@@ -105,7 +105,7 @@ def show():
         bars = ax.bar(categories, values, color=['blue', 'green'])
         ax.set_ylabel('配当金（円）', fontproperties=prop)
         ax.set_xticklabels(categories, fontproperties=prop)
-        ax.yaxis.set_major_locator(ticker.MultipleLocator(100000))  # 10万円刻みの表示に設定
+        ax.yaxis.set_major_locator(ticker.MultipleLocator(500000))  # 50万円刻みの表示に設定
         ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
         for bar in bars:
             height = bar.get_height()
