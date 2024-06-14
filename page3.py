@@ -7,11 +7,6 @@ import os
 
 # フォントファイルのパスを指定
 font_path = 'msgothic.ttc'
-if not os.path.exists(font_path):
-    st.error("フォントファイルが見つかりません。")
-else:
-    st.success("フォントファイルが見つかりました。")
-
 prop = fm.FontProperties(fname=font_path)
 
 def show():
