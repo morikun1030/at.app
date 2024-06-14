@@ -3,6 +3,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
+# フォント設定
+font_path = 'msgothic.ttc'  #MS Gothicのパス
+prop = fm.FontProperties(fname=font_path)
+
 def show():
     # Session stateからPage1とPage2のデータを取得
     page1_df = st.session_state.get('page1_data')
