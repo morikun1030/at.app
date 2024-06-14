@@ -6,7 +6,7 @@ import matplotlib.font_manager as fm
 import os
 
 # フォントファイルのパスを指定
-font_path = 'C:/Windows/Fonts/msgothic.ttc'
+font_path = 'msgothic.ttc'
 
 # スコアリングのための関数
 def calculate_self_capital_ratio_score(value):
